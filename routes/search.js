@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 
+var userEnv = process.env.USER_COREA2D;
+var passwordEnv = process.env.PWD_COREA2D;
+
 var phraseoQuery = 'SELECT norm_form,super_entry,definition,lexical_entry,normalized_form ' +
     'FROM form ' +
     'LEFT JOIN entry ON form.sense_id = entry.id ' +
@@ -29,11 +32,10 @@ router.get('/search', function(req, res) {
     } else {
         return res.status(404).json({ "info" : "the DB don't exist !"});
     }
-
     var cred = {
         host     : 'sql.atilf.fr',
-        user     : 'lexique',
-        password : 'lexique',
+        user     : userEnv,
+        password : passwordEnv,
         database : db
     };
     var connection = mysql.createConnection(cred);
