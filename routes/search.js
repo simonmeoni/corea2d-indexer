@@ -2,13 +2,13 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 
-var phraseoQuery = 'SELECT norm_form,super_entry,definition,lexical_entry,normalized_form,tlfi_form ' +
+var phraseoQuery = 'SELECT norm_form,super_entry,definition,lexical_entry,normalized_form ' +
     'FROM form ' +
     'LEFT JOIN entry ON form.sense_id = entry.id ' +
     'LEFT JOIN corresp_sense_domain ON entry.id = corresp_sense_domain.sense_id ' +
     'LEFT JOIN domain ON corresp_sense_domain.domain_id = domain.id ' +
     'WHERE form.id =';
-var lstQuery = 'SELECT * FROM form where id = ';
+var lstQuery = 'SELECT pos,lemma,class,definition FROM form where id = ';
 
 const databaseSchema = {
     LST: 'lexique_transdisciplinaire',
