@@ -4,6 +4,7 @@ var mysql = require('mysql');
 
 var userEnv = process.env.USER_COREA2D;
 var passwordEnv = process.env.PWD_COREA2D;
+var sqlEnv = process.env.SQL_COREA2D;
 
 var phraseoQuery = 'SELECT norm_form,super_entry,definition,lexical_entry,normalized_form ' +
     'FROM form ' +
@@ -33,7 +34,7 @@ router.get('/search', function(req, res) {
         return res.status(404).json({ "info" : "the DB don't exist !"});
     }
     var cred = {
-        host     : 'sql.atilf.fr',
+        host     : sqlEnv,
         user     : userEnv,
         password : passwordEnv,
         database : db
