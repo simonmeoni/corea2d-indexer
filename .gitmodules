@@ -1,0 +1,3 @@
+[submodule "coread-resource-indexer-front"]
+	path = coread-resource-indexer-front
+	url = git@github.com:simonmeoni/corea2d-indexer-front.git
