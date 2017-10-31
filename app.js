@@ -4,27 +4,30 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-var index = require('./routes/index');
 var search = require('./routes/search');
 
 var app = express();
 
 // view engine setup
-app.use(express.static('public'));
-app.use(express.static('coread-resource-indexer-front/dist'));
+app.use(express.static(__dirname + '/coread-resource-indexer-front/dist'));
+app.use(express.static(__dirname + '/public'));
+
 
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/', index);
-app.use('/', search);
+app.get('/corea2d', function (req, res) {
+    res.sendFile(__dirname + '/coread-resource-indexer-front/dist/index.html');
+});
+
+app.use('/corea2d', search);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
