@@ -3,7 +3,7 @@ var router = express.Router();
 var mysql = require('mysql');
 var elasticsearch = require('elasticsearch');
 var client = new elasticsearch.Client({
-    host: 'localhost:9200',
+    host: 'elastic:changeme@localhost:9200',
     log: 'trace'
 });
 var userEnv = process.env.USER_COREA2D;
