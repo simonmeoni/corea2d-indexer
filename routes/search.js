@@ -2,14 +2,16 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 var elasticsearch = require('elasticsearch');
-var client = new elasticsearch.Client({
-    host: 'http://localhost:9200',
-    auth: 'elastic:changeme',
-    log: 'trace'
-});
+
+var elasticEnv = process.env.ELASTIC_COREA2D;
 var userEnv = process.env.USER_COREA2D;
 var passwordEnv = process.env.PWD_COREA2D;
 var sqlEnv = process.env.SQL_COREA2D;
+
+var client = new elasticsearch.Client({
+    host: elasticEnv + ':9200',
+    log: 'trace'
+});
 
 var phraseoQuery = 'SELECT norm_form,super_entry,definition,lexical_entry,normalized_form ' +
     'FROM form ' +
