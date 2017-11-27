@@ -18,8 +18,8 @@ var phraseoQuery = 'SELECT norm_form,super_entry,definition,lexical_entry,normal
     'LEFT JOIN entry ON form.sense_id = entry.id ' +
     'LEFT JOIN corresp_sense_domain ON entry.id = corresp_sense_domain.sense_id ' +
     'LEFT JOIN domain ON corresp_sense_domain.domain_id = domain.id ' +
-    'WHERE form.id =';
-var lstQuery = 'SELECT pos,lemma,class,definition FROM entry where id = ';
+    'WHERE form.sense_id =';
+var lstQuery = 'SELECT pos,lemma,class,definition FROM form where id = ';
 
 var ctQuery = {
     term: {
