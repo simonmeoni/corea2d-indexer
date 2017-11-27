@@ -19,7 +19,7 @@ var phraseoQuery = 'SELECT norm_form,super_entry,definition,lexical_entry,normal
     'LEFT JOIN corresp_sense_domain ON entry.id = corresp_sense_domain.sense_id ' +
     'LEFT JOIN domain ON corresp_sense_domain.domain_id = domain.id ' +
     'WHERE form.id =';
-var lstQuery = 'SELECT pos,lemma,class,definition FROM form where id = ';
+var lstQuery = 'SELECT pos,lemma,class,definition FROM entry where id = ';
 
 var ctQuery = {
     term: {
@@ -79,6 +79,7 @@ function searchVariants(key,json,db,res){
 
 function searchOnElastic(id,db,res){
     ctQuery.term.query.match_phrase.id = id;
+    console.log(db);
     client.search({
         index: db,
         type: 'terms',
@@ -113,7 +114,8 @@ router.get('/search', function(req, res) {
     var id = req.query.id;
     if (!db || !id) return res.json({"error": "missing parameter !"});
 
-    if (db === (databaseSchema.CTA || databaseSchema.CTC || databaseSchema.CTL)){
+    if (db === databaseSchema.CTA || db === databaseSchema.CTC || db === databaseSchema.CTL) {
+        console.log("salut man");
         searchOnElastic(id,db,res)
     } else if( db === databaseSchema.LST){
         searchOnSql(lstQuery + id,db,res);
